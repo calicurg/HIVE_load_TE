@@ -1,0 +1,27 @@
+###========================================================
+
+service ssh restart
+ssh localhost
+
+cd ~/Programs/hadoop-2.10.1/bin
+
+./hdfs namenode -format
+
+cd ../sbin 
+./start-dfs.sh
+
+cd ../../ 
+cd apache-hive-2.3.9-bin/bin
+
+export HADOOP_HOME=~/Programs/hadoop-2.10.1
+export HADOOP_PREFIX=$HADOOP_HOME
+
+./hive 
+
+
+
+
+
+
+
+

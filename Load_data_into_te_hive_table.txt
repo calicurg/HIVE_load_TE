@@ -1,0 +1,33 @@
+## **** loading data from  local filesystem
+
+LOAD DATA LOCAL INPATH $csv_to_load INTO TABLE te
+
+
+./hive -e "SELECT * FROM fda_te LIMIT 100;" > 0501/count_fda_te.txt
+
+
+##### ================================
+
+touch CreateTE__hdfs.sql
+
+gedit CreateTE__hdfs.sql
+
+create_sql=/root/Programs/apache-hive-2.3.9-bin/bin/0501/CreateTE__hdfs.sql
+
+cat $create_sql
+
+./hive -f $create_sql 
+
+./hive -e "SHOW TABLES;"   
+
+/hive -e "DESCRIBE fda_hdfs;"  
+
+## **** loading data from HDFS 
+
+./hive -e "LOAD DATA INPATH '/ronoeva/TE.csv' INTO TABLE fda_hdfs;"
+
+
+./hive -e "SELECT COUNT(appl_no) FROM fda_hdfs;" > 0501/COUNT_fda_hdfs.txt
+
+./hive -e "SELECT appl_no,product_no,tecode FROM fda_hdfs LIMIT 25;" > 0501/select_top_25_fda_hdfs.txt
+
